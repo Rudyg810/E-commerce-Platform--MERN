@@ -1,6 +1,7 @@
-const usermodel = require("../models/usermodel.j")
+const usermodel = require("../models/usermodel.js")
+import { comparePassword, hashPassword} from "../utils/authhelper.js"
 const bcrypt = require("../utils/authhelper.js")
-
+import JWT from 'jsonwebtoken'    
 //1
 const registerController = async(req,res)=>{
 try{ 
@@ -45,8 +46,8 @@ try{
     
         })
         
-}
-    }catch(error){
+}  }
+catch(error){
         console.log(error)
         res.status(500).send({
             success: false,
@@ -56,5 +57,54 @@ try{
 
 }
 }
+//3rd login controller
+const loginController = async(req,res)=>{
+    try {
+        const {email,password}= req.body
+        if(!email || !password){
+            return res.status(404).send({
+                success: false,
+                message: "Password or Username Invalid"
+            })
+        
+        }
+        //check user
+    const user = await usermodel.findOne({email})
+    if(!user){
+        return res.status(404).send({
+            succes: false,
+            message:"Email not registered"
+        })
+    }
+    const match = await comparePassword(password, user.password)
+    if(!match){ 
+        return res.status(200).send({
+            succes: true,
+            mesage:"Imvalid Password"
 
-module.exports= {registerController}
+        })}
+        const token = await JWT.sign({ _id: user._id}, process.env.JWT_SECTRET, {
+            expiresIn = "7d",
+        })
+        res.status(200).send({
+            success: true,
+            message: "Login succesfull", 
+            user:{
+                name: user.name,
+                email= user.email,
+                phone = user.phone,
+                pin = user.pin}, 
+            token,
+        });
+    }
+    catch (error) {
+        console.log(error)
+        res.status(201).send({
+            succes: false,
+            mesage:" login failed", 
+            error
+        })
+      }
+}
+
+module.exports= {registerController, existingUser}

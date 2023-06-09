@@ -1,1 +1,4 @@
 # Commerce
+//dependencies{
+    jsonwebtoken/brycrypt/
+}
