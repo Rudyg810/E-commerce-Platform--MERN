@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs")
+const bcrypt =require("bcryptjs")
 const hashPassword = async(password) =>{
     //saltround = noo. of times hashing is being done
     try{
@@ -9,7 +9,7 @@ const hashPassword = async(password) =>{
         console.log(error)
     }
 }
-const comparepassword = async(password, hashedpass) =>{
+const comparePassword = async(password, hashedpass) =>{
     try{
         return bcrypt.compare(password,hashedpass)
     }

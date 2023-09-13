@@ -5,18 +5,41 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js -e js, hbs"
+    "dev": "concurrently \"npm run server\" \" npm run client\"",
+    "client": "npm start --prefix ./client/app",
+    "server": "nodemon server.js",
+    "start": " nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
-    "dotenv": "^16.1.4",
+    "bootstrap": "^5.3.0",
+    "concurrently": "^8.2.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
     "express": "^4.18.2",
+    "express-formidable": "^1.2.0",
+    "html-to-jsx": "^0.0.4",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.10.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
-    "route": "^0.2.5"
+    "os": "^0.1.2",
+    "os-browserify": "^0.3.0",
+    "path": "^0.12.7",
+    "path-browserify": "^1.0.1",
+    "react-app-rewired": "^2.2.1",
+    "react-router-dom": "^6.14.1",
+    "route": "^0.2.5",
+    "slugify": "^1.6.6",
+    "styled-components": "^6.0.7"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1"
   }
 }

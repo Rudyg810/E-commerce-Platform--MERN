@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const  mongoose = require("mongoose")
 
 const userschema = new mongoose.Schema({
     name:{
@@ -26,6 +26,12 @@ const userschema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    role:
+    {
+        type: Number,
+        required: false,
+        default: 0
     }
 }, {
     timestamps: true
